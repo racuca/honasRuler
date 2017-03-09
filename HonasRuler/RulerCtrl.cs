@@ -71,6 +71,7 @@ namespace HonasRuler
         public RulerCtrl()
         {
             InitializeComponent();
+            this.ResizeRedraw = true;
             CurrentInterval = UnitIntervals[(int)unittype];
         }
 
@@ -87,6 +88,8 @@ namespace HonasRuler
 
         void DrawRuler(Graphics g)
         {
+            Debug.WriteLine("DrawRuler");
+
             ctrlSize = this.Size;
 
             startX = 2;
@@ -114,7 +117,12 @@ namespace HonasRuler
                 // Calculate line Height for each unit value
                 if (mm % CurrentInterval.FullInterval == 0)
                 {
-                    lineHeight = ctrlSize.Height - bottomMargin;
+                    if (Direction == DirectionType.Left || Direction == DirectionType.Right)
+                    {
+                        lineHeight = ctrlSize.Width - bottomMargin;
+                    }
+                    else 
+                        lineHeight = ctrlSize.Height - bottomMargin;
                 }
                 else if (mm % CurrentInterval.halfInterval == 0)
                 {
@@ -125,33 +133,52 @@ namespace HonasRuler
                     lineHeight = normalLineHeight;
                 }
 
+                float RelativeStartX = 0;
                 switch (unittype)
                 {
-                    case EUnitType.mm: slineX = ConvertMMToPixel(mm, g.DpiX); break;
-                    case EUnitType.inch: slineX = ConvertInchToPixel(mm, g.DpiX); break;
-                    case EUnitType.pixel: slineX = ConvertInchToPixel(mm, g.DpiX); break;
+                    case EUnitType.mm: RelativeStartX = ConvertMMToPixel(mm, g.DpiX); break;
+                    case EUnitType.inch: RelativeStartX = ConvertInchToPixel(mm, g.DpiX); break;
+                    case EUnitType.pixel: RelativeStartX = ConvertInchToPixel(mm, g.DpiX); break;
                 }
 
+                PointF TextPoint = new PointF();
                 switch (Direction)
                 {
                     case DirectionType.Top:
+                        slineX = elineX = RelativeStartX;
                         slineY = 0;
-                        elineX = slineX;
                         elineY = lineHeight;
+                        TextPoint.X = slineX + 3;
+                        TextPoint.Y = elineY - 12;
                         break;
                     case DirectionType.Bottom:
+                        slineX = elineX = RelativeStartX;
                         slineY = this.Height;
-                        elineY = -lineHeight;
+                        elineY = this.Height - lineHeight;
+                        TextPoint.X = slineX + 3;
+                        TextPoint.Y = elineY - 3;
                         break;
                     case DirectionType.Left:
                         slineX = this.Location.X;
-                        slineY = this.Location.Y - slineX;
+                        slineY = elineY = this.Height - RelativeStartX;
+                        elineX = lineHeight;
+                        TextPoint.X = elineX - 16;
+                        TextPoint.Y = elineY - 16;
                         break;
                     case DirectionType.Right:
-                        slineX = this.Location.X;
-                        slineY = this.Location.Y + slineX;
+                        slineX = this.Width;
+                        slineY = elineY = RelativeStartX;
+                        elineX = this.Width - lineHeight;
+                        TextPoint.X = elineX + 3;
+                        TextPoint.Y = elineY + 3;
                         break;
                 }
+
+                // Don't draw control outside
+                if (slineX < 0 || slineY < 0 || elineX < 0 || elineY < 0)
+                    break;
+                if (slineX > this.Width || slineY > this.Height || elineX > this.Width || elineY > this.Height)
+                    break;
 
                 // Draw line 
                 g.DrawLine(linepen, new PointF(slineX, slineY), new PointF(elineX, elineY));
@@ -159,11 +186,8 @@ namespace HonasRuler
                 // Draw Unit Text
                 if (mm % 10 == 0)
                 {
-                    g.DrawString((mm / 10).ToString(), new Font("Fixedsys", 8), Brushes.Black, new PointF(slineX + 3, slineY + elineY - 12));
+                    g.DrawString((mm / 10).ToString(), new Font("Fixedsys", 8), Brushes.Black, TextPoint);
                 }
-
-                if (ctrlSize.Width < slineX + rightMargin)
-                    break;
             }
         }
 

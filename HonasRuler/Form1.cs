@@ -39,6 +39,8 @@ namespace HonasRuler
 
             this.TopMost = true;
 
+            this.ResizeRedraw = true;
+
             rulerCtrl1.UnitType = RulerCtrl.EUnitType.mm;
             ToolStripMenuItem toolstrip = contextMenuStrip1.Items[(int)MenuItems.Unit] as ToolStripMenuItem;
             ToolStripMenuItem unititem = toolstrip.DropDownItems[(int)MenuItemsforUnit.mm] as ToolStripMenuItem;
@@ -177,6 +179,7 @@ namespace HonasRuler
         private void RotateTo(RulerCtrl.DirectionType type)
         {
             bool rotate90 = false;
+
             if (IsToporBottom(rulerCtrl1.Direction) != IsToporBottom(type))
             {
                 rotate90 = true;
@@ -184,19 +187,47 @@ namespace HonasRuler
 
             if (rotate90)
             {
+                int rulerWidth = rulerCtrl1.Width;
+                int rulerHeight = rulerCtrl1.Height;
+
+                int pictureWidth = rulerCtrl1.Width;
+                int pictureHeight = rulerCtrl1.Height;
+
                 int width = this.Width;
                 int height = this.Height;
-                this.Height = width;
                 this.Width = height;
+                this.Height = width;
+
+                rulerCtrl1.Width = rulerHeight;
+                rulerCtrl1.Height = rulerWidth;
+
+                pictureBox1.Width = pictureHeight;
+                pictureBox1.Height = pictureWidth;
+
             }
 
             switch (type)
             {
-                case RulerCtrl.DirectionType.Top: rulerCtrl1.Dock = DockStyle.Top; break;
-                case RulerCtrl.DirectionType.Bottom: rulerCtrl1.Dock = DockStyle.Bottom; break;
-                case RulerCtrl.DirectionType.Left: rulerCtrl1.Dock = DockStyle.Left; break;
-                case RulerCtrl.DirectionType.Right: rulerCtrl1.Dock = DockStyle.Right; break;
+                case RulerCtrl.DirectionType.Top:
+                    rulerCtrl1.Dock = DockStyle.Top; 
+                    advCollpseBtn.Location = new Point(rulerCtrl1.Location.X, pictureBox1.Location.Y);
+                    break;
+                case RulerCtrl.DirectionType.Bottom:
+                    rulerCtrl1.Dock = DockStyle.Bottom;
+                    advCollpseBtn.Location = new Point(rulerCtrl1.Location.X, rulerCtrl1.Location.Y - advCollpseBtn.Height);
+                    break;
+                case RulerCtrl.DirectionType.Left:
+                    rulerCtrl1.Dock = DockStyle.Left;
+                    advCollpseBtn.Location = new Point(rulerCtrl1.Location.X, rulerCtrl1.Location.Y - advCollpseBtn.Height);
+                    break;
+                case RulerCtrl.DirectionType.Right:
+                    rulerCtrl1.Dock = DockStyle.Right;
+                    advCollpseBtn.Location = new Point(rulerCtrl1.Location.X, rulerCtrl1.Location.Y - advCollpseBtn.Height);
+                    break;
             }
+
+            RotateFlipType rotatefliptype = GetRotateFilpType(type);
+            pictureBox1.Image = ImageHelper.RotateImage(pictureBox1.Image, rotatefliptype);
         }
 
         bool IsToporBottom(RulerCtrl.DirectionType type)
@@ -205,6 +236,52 @@ namespace HonasRuler
                 return true;
 
             return false;
+        }
+
+        RotateFlipType GetRotateFilpType(RulerCtrl.DirectionType type)
+        {
+            RotateFlipType rotatetype = RotateFlipType.RotateNoneFlipNone;
+            switch (type)
+            {
+                case RulerCtrl.DirectionType.Top:
+                    switch (rulerCtrl1.Direction)
+                    {
+                        case RulerCtrl.DirectionType.Top: rotatetype = RotateFlipType.RotateNoneFlipNone; break;
+                        case RulerCtrl.DirectionType.Bottom: rotatetype = RotateFlipType.RotateNoneFlipNone; break;
+                        case RulerCtrl.DirectionType.Left: rotatetype = RotateFlipType.Rotate90FlipNone; break;
+                        case RulerCtrl.DirectionType.Right: rotatetype = RotateFlipType.Rotate270FlipNone; break;
+                    }
+                    break;
+                case RulerCtrl.DirectionType.Bottom:
+                    switch (rulerCtrl1.Direction)
+                    {
+                        case RulerCtrl.DirectionType.Top: rotatetype = RotateFlipType.RotateNoneFlipNone; break;
+                        case RulerCtrl.DirectionType.Bottom: rotatetype = RotateFlipType.RotateNoneFlipNone; break;
+                        case RulerCtrl.DirectionType.Left: rotatetype = RotateFlipType.Rotate270FlipNone; break;
+                        case RulerCtrl.DirectionType.Right: rotatetype = RotateFlipType.Rotate90FlipNone; break;
+                    }
+                    break;
+                case RulerCtrl.DirectionType.Left:
+                    switch (rulerCtrl1.Direction)
+                    {
+                        case RulerCtrl.DirectionType.Top: rotatetype = RotateFlipType.Rotate90FlipNone; break;
+                        case RulerCtrl.DirectionType.Bottom: rotatetype = RotateFlipType.Rotate90FlipNone; break;
+                        case RulerCtrl.DirectionType.Left: rotatetype = RotateFlipType.RotateNoneFlipNone; break;
+                        case RulerCtrl.DirectionType.Right: rotatetype = RotateFlipType.Rotate180FlipNone; break;
+                    }
+                    break;
+                case RulerCtrl.DirectionType.Right:
+                    switch (rulerCtrl1.Direction)
+                    {
+                        case RulerCtrl.DirectionType.Top: rotatetype = RotateFlipType.Rotate270FlipNone; break;
+                        case RulerCtrl.DirectionType.Bottom: rotatetype = RotateFlipType.Rotate270FlipNone; break;
+                        case RulerCtrl.DirectionType.Left: rotatetype = RotateFlipType.Rotate180FlipNone; break;
+                        case RulerCtrl.DirectionType.Right: rotatetype = RotateFlipType.RotateNoneFlipNone; break;
+                    }
+                    break;
+            }
+
+            return rotatetype;
         }
     }
 }
