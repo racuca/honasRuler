@@ -14,8 +14,10 @@ namespace HonasRuler
     {
         public enum MenuItems
         {
-            Unit
-
+            MonitorSizeInch,
+            Unit,
+            Direction,
+            MaxSize
         }
 
         public enum MenuItemsforUnit
@@ -28,6 +30,11 @@ namespace HonasRuler
         string extendstr = "▽";
         string collapsestr = "△";
         bool bcollapsed = false;
+
+
+        ToolStripMenuItem screensizecheckeditem;
+        ToolStripMenuItem unitcheckeditem;
+        ToolStripMenuItem directioncheckeditem;
 
 
         public Form1()
@@ -46,7 +53,10 @@ namespace HonasRuler
             ToolStripMenuItem unititem = toolstrip.DropDownItems[(int)MenuItemsforUnit.mm] as ToolStripMenuItem;
             unititem.CheckState = CheckState.Checked;
         }
-        
+
+
+        #region Control Event
+
         private void Form1_Load(object sender, EventArgs e)
         {
             advCollpseBtn.Width = 50;
@@ -54,6 +64,45 @@ namespace HonasRuler
             advCollpseBtn.Text = extendstr;
 
             pictureBox1.BackColor = Color.LightGray;
+            
+            ToolStripMenuItem toolstrip = contextMenuStrip1.Items[(int)MenuItems.MonitorSizeInch] as ToolStripMenuItem;
+            foreach (double s in RulerCtrl.MonitorSizeInch)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem();
+                item.Text = s.ToString();
+                item.Tag = s;
+                item.Click += monitorsizeItem_Click;
+                toolstrip.DropDownItems.Add(item);
+
+                if (rulerCtrl1.currentMonitorSizeInch == s)
+                {
+                    item.Checked = true;
+                    screensizecheckeditem = item;
+                }
+            }
+
+
+            toolstrip = contextMenuStrip1.Items[(int)MenuItems.Unit] as ToolStripMenuItem;
+            unitcheckeditem = (ToolStripMenuItem)toolstrip.DropDownItems[(int)MenuItemsforUnit.mm];
+            unitcheckeditem.Checked = true;
+
+            toolstrip = contextMenuStrip1.Items[(int)MenuItems.Direction] as ToolStripMenuItem;
+            directioncheckeditem = (ToolStripMenuItem)toolstrip.DropDownItems[0];
+            directioncheckeditem.Checked = true;           
+
+        }
+
+        private void monitorsizeItem_Click(object sender, EventArgs e)
+        {
+            screensizecheckeditem.Checked = false;
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            rulerCtrl1.currentMonitorSizeInch = (double)item.Tag;
+
+            screensizecheckeditem = item;
+            screensizecheckeditem.Checked = true;
+
+            rulerCtrl1.Update();
+            this.Refresh();
         }
 
         protected override void OnPaintBackground(PaintEventArgs e)
@@ -132,50 +181,91 @@ namespace HonasRuler
 
         private void mmToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            unitcheckeditem.Checked = false;
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            unitcheckeditem = item;
+            unitcheckeditem.Checked = true;
+
             rulerCtrl1.UnitType = RulerCtrl.EUnitType.mm;
-            this.Update();
+            this.Refresh();
         }
 
         private void inchToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            unitcheckeditem.Checked = false;
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            unitcheckeditem = item;
+            unitcheckeditem.Checked = true;
+
             rulerCtrl1.UnitType = RulerCtrl.EUnitType.inch;
-            this.Update();
+            this.Refresh();
         }
 
         private void pixelToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            unitcheckeditem.Checked = false;
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            unitcheckeditem = item;
+            unitcheckeditem.Checked = true;
+
             rulerCtrl1.UnitType = RulerCtrl.EUnitType.pixel;
-            this.Update();
+            this.Refresh();
         }
 
         private void normalToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            directioncheckeditem.Checked = false;
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            directioncheckeditem = item;
+            directioncheckeditem.Checked = true;
+
             RotateTo(RulerCtrl.DirectionType.Top);
             rulerCtrl1.Direction = RulerCtrl.DirectionType.Top;
-            this.Update();
+            this.Refresh();
         }
 
         private void bottomToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            directioncheckeditem.Checked = false;
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            directioncheckeditem = item;
+            directioncheckeditem.Checked = true;
+
             RotateTo(RulerCtrl.DirectionType.Bottom);
             rulerCtrl1.Direction = RulerCtrl.DirectionType.Bottom;
-            this.Update();
+            this.Refresh();
         }
 
         private void leftToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            directioncheckeditem.Checked = false;
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            directioncheckeditem = item;
+            directioncheckeditem.Checked = true;
+
             RotateTo(RulerCtrl.DirectionType.Left);
             rulerCtrl1.Direction = RulerCtrl.DirectionType.Left;
-            this.Update();
+            this.Refresh();
         }
 
         private void rightToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            directioncheckeditem.Checked = false;
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            directioncheckeditem = item;
+            directioncheckeditem.Checked = true;
+
             RotateTo(RulerCtrl.DirectionType.Right);
             rulerCtrl1.Direction = RulerCtrl.DirectionType.Right;
-            this.Update();
+            this.Refresh();
         }
-        
+        #endregion
+
+
+
+
+        #region Misc Functions
+
         private void RotateTo(RulerCtrl.DirectionType type)
         {
             bool rotate90 = false;
@@ -283,5 +373,7 @@ namespace HonasRuler
 
             return rotatetype;
         }
+
+        #endregion
     }
 }

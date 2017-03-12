@@ -30,7 +30,7 @@ namespace HonasRuler
             }
         }
         UnitInterval[] UnitIntervals = { new UnitInterval(1, 5, 2),
-                                         new UnitInterval(1, 1, 2),
+                                         new UnitInterval(0.5f, 0.5f, 2),
                                          new UnitInterval(50, 50, 2)
         };
         public UnitInterval CurrentInterval;
@@ -44,6 +44,11 @@ namespace HonasRuler
         }
         public DirectionType Direction = DirectionType.Top;
 
+
+        public static double[] MonitorSizeInch = new double[] { 3.5, 4, 5, 7.9, 9.7, 10.1, 11.6, 13.3, 14, 14.4,
+                                                                15, 15.6, 17, 18.4, 19, 21, 22, 23 };
+
+        public double currentMonitorSizeInch = 15.6;
 
 
         float startX;
@@ -63,7 +68,7 @@ namespace HonasRuler
         float halfLineHeight = 20;
         float normalLineHeight = 10;
 
-
+        Screen currentScreen;
 
 
 
@@ -95,16 +100,17 @@ namespace HonasRuler
             startX = 2;
             startY = 0;
 
-            int mm = 0;
+            float mm = 0;
 
             float dpix = g.DpiX;
             float dpiy = g.DpiY;
             Screen[] sc = Screen.AllScreens;
             foreach (Screen s in sc)
             {
-                int bits = s.BitsPerPixel;
-                bool primary = s.Primary;
                 Size size = s.WorkingArea.Size;
+                Point screenpoint = this.PointToScreen(this.Location);
+                if (s.WorkingArea.Contains(screenpoint))
+                    currentScreen = s;
             }
 
             float slineX = startX;  // Start X point
@@ -184,9 +190,9 @@ namespace HonasRuler
                 g.DrawLine(linepen, new PointF(slineX, slineY), new PointF(elineX, elineY));
 
                 // Draw Unit Text
-                if (mm % 10 == 0)
+                if (mm % CurrentInterval.FullInterval == 0)
                 {
-                    g.DrawString((mm / 10).ToString(), new Font("Fixedsys", 8), Brushes.Black, TextPoint);
+                    g.DrawString((mm / CurrentInterval.FullInterval).ToString(), new Font("Fixedsys", 8), Brushes.Black, TextPoint);
                 }
             }
         }
@@ -199,7 +205,22 @@ namespace HonasRuler
 
         float ConvertMMToPixel(double mm, float dpi)
         {
-            float pixels = (float)(mm * dpi) / 25.4f;
+            float pixels = 0;
+
+            // DPI method - works fine on only 1920x1080 96 dpi monitor.
+            //pixels = (float)(mm * dpi) / 25.4f;
+
+            // Resolution method
+            Size s = currentScreen.Bounds.Size;
+            float xinches;
+            float yinches;
+            GetRealInchforWidthHeight(out xinches, out yinches);
+            
+            if (Direction == DirectionType.Top || Direction == DirectionType.Bottom)
+                pixels = (float)mm * s.Width / (xinches * 25.4f);
+            else
+                pixels = (float)mm * s.Height / (yinches * 25.4f);
+
             return pixels;
         }
 
@@ -209,10 +230,29 @@ namespace HonasRuler
             return mm;
         }
 
-        float ConvertInchToPixel(double mm, float dpi)
+        float ConvertInchToPixel(double inch, float dpi)
         {
-            float pixels = (float)(mm * dpi) / 72;
+            float pixels;
+
+            Size s = currentScreen.Bounds.Size;
+            float xinches;
+            float yinches;
+            GetRealInchforWidthHeight(out xinches, out yinches);
+
+            if (Direction == DirectionType.Top || Direction == DirectionType.Bottom)
+                pixels = (float)inch * s.Width / xinches;
+            else
+                pixels = (float)inch * s.Height / yinches;
+
             return pixels;
+        }
+
+        void GetRealInchforWidthHeight(out float xinches, out float yinches)
+        {
+            Size s = currentScreen.Bounds.Size;
+            double sqrtdiagonal = Math.Sqrt(s.Width * s.Width + s.Height * s.Height);
+            xinches = (float)(currentMonitorSizeInch * s.Width / sqrtdiagonal);
+            yinches = (float)(currentMonitorSizeInch * s.Height / sqrtdiagonal);
         }
     }
 
@@ -221,24 +261,24 @@ namespace HonasRuler
         /// <summary>
         /// One Unit for Each UnitType
         /// </summary>
-        public int Interval;
+        public float Interval;
 
         /// <summary>
         /// Half Seperator Line for Each UnitType
         /// </summary>
-        public int halfInterval;
+        public float halfInterval;
 
 
-        public int Multifier;
+        public float Multifier;
 
-        public UnitInterval(int i, int half, int multi)
+        public UnitInterval(float interval, float half, float multi)
         {
-            Interval = i;
+            Interval = interval;
             halfInterval = half;
             Multifier = multi;
         }
 
-        public int FullInterval
+        public float FullInterval
         {
             get {
                 return halfInterval * Multifier;
