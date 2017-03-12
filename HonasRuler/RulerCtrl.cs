@@ -144,7 +144,7 @@ namespace HonasRuler
                 {
                     case EUnitType.mm: RelativeStartX = ConvertMMToPixel(mm, g.DpiX); break;
                     case EUnitType.inch: RelativeStartX = ConvertInchToPixel(mm, g.DpiX); break;
-                    case EUnitType.pixel: RelativeStartX = ConvertInchToPixel(mm, g.DpiX); break;
+                    case EUnitType.pixel: RelativeStartX = mm; break;
                 }
 
                 PointF TextPoint = new PointF();
@@ -192,7 +192,10 @@ namespace HonasRuler
                 // Draw Unit Text
                 if (mm % CurrentInterval.FullInterval == 0)
                 {
-                    g.DrawString((mm / CurrentInterval.FullInterval).ToString(), new Font("Fixedsys", 8), Brushes.Black, TextPoint);
+                    string intervalvalue = (mm / CurrentInterval.FullInterval).ToString();
+                    if (unittype == EUnitType.pixel)
+                        intervalvalue = mm.ToString();
+                    g.DrawString(intervalvalue, new Font("Fixedsys", 8), Brushes.Black, TextPoint);
                 }
             }
         }

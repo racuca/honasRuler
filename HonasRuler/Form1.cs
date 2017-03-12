@@ -375,5 +375,11 @@ namespace HonasRuler
         }
 
         #endregion
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About a = new About();
+            a.ShowDialog(this);
+        }
     }
 }
