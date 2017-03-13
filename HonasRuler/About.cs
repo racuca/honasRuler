@@ -24,8 +24,14 @@ namespace HonasRuler
             richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
             richTextBox1.Select(0, 0);
             richTextBox1.ReadOnly = true;
+            richTextBox1.LinkClicked += RichTextBox1_LinkClicked;
 
             this.Focus();
+        }
+
+        private void RichTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("iexplore", e.LinkText);
         }
     }
 }
