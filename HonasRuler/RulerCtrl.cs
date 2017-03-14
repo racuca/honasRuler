@@ -12,6 +12,11 @@ namespace HonasRuler
 {
     public partial class RulerCtrl : UserControl
     {
+
+        public delegate void SizeChangeReqDelegate(SizeF s);
+        public event SizeChangeReqDelegate sizeChangeReqEvent;
+
+
         public enum EUnitType
         {
             mm, 
@@ -49,6 +54,13 @@ namespace HonasRuler
                                                                 15, 15.6, 17, 18.4, 19, 21, 22, 23 };
 
         public double currentMonitorSizeInch = 15.6;
+
+
+        public static float[] SizeUnit = { 5, 10, 15, 20, 25, 30 };
+        public static float[] SizeUnitforPixel = { 100, 200, 400, 800, 1000, 1500, 2000, 2500 };
+
+        public float currentMaxSizeforUnit = 15;
+        public bool MaxSizeChangeRequest = false;
 
 
         float startX;
@@ -183,8 +195,30 @@ namespace HonasRuler
                 // Don't draw control outside
                 if (slineX < 0 || slineY < 0 || elineX < 0 || elineY < 0)
                     break;
-                if (slineX > this.Width || slineY > this.Height || elineX > this.Width || elineY > this.Height)
+
+                float realunits = mm;
+                if (unittype == EUnitType.mm)
+                {
+                    realunits = mm / 10f;
+                }
+
+                if (MaxSizeChangeRequest)
+                {
+                    if (currentMaxSizeforUnit < realunits)
+                    {
+                        MaxSizeChangeRequest = false;
+                        SizeF maxSize = new SizeF(Math.Abs(RelativeStartX), this.Height);
+                        if (Direction == DirectionType.Left || Direction == DirectionType.Right)
+                            maxSize = new SizeF(this.Width, Math.Abs(RelativeStartX));
+                        if (sizeChangeReqEvent != null)
+                            sizeChangeReqEvent(maxSize);
+                        break;
+                    }
+                }
+                else if (slineX > this.Width || slineY > this.Height || elineX > this.Width || elineY > this.Height)
+                {
                     break;
+                }
 
                 // Draw line 
                 g.DrawLine(linepen, new PointF(slineX, slineY), new PointF(elineX, elineY));

@@ -35,7 +35,7 @@ namespace HonasRuler
         ToolStripMenuItem screensizecheckeditem;
         ToolStripMenuItem unitcheckeditem;
         ToolStripMenuItem directioncheckeditem;
-
+        ToolStripMenuItem maxsizecheckeditem;
 
         public Form1()
         {
@@ -52,6 +52,20 @@ namespace HonasRuler
             ToolStripMenuItem toolstrip = contextMenuStrip1.Items[(int)MenuItems.Unit] as ToolStripMenuItem;
             ToolStripMenuItem unititem = toolstrip.DropDownItems[(int)MenuItemsforUnit.mm] as ToolStripMenuItem;
             unititem.CheckState = CheckState.Checked;
+
+            rulerCtrl1.sizeChangeReqEvent += RulerCtrl1_sizeChangeReqEvent;
+        }
+
+        private void RulerCtrl1_sizeChangeReqEvent(SizeF s)
+        {
+            if (IsToporBottom(rulerCtrl1.Direction))
+            {
+                this.Width = (int)s.Width;
+            }
+            else
+            {
+                this.Height = (int)s.Height;
+            }
         }
 
 
@@ -88,8 +102,39 @@ namespace HonasRuler
 
             toolstrip = contextMenuStrip1.Items[(int)MenuItems.Direction] as ToolStripMenuItem;
             directioncheckeditem = (ToolStripMenuItem)toolstrip.DropDownItems[0];
-            directioncheckeditem.Checked = true;           
+            directioncheckeditem.Checked = true;
 
+            toolstrip = contextMenuStrip1.Items[(int)MenuItems.MaxSize] as ToolStripMenuItem;
+            foreach (float s in RulerCtrl.SizeUnit)
+            {
+                ToolStripMenuItem item = new ToolStripMenuItem();
+                item.Text = s.ToString();
+                item.Tag = s;
+                item.Click += maxSizeItem_Click;
+                toolstrip.DropDownItems.Add(item);
+
+                if (rulerCtrl1.currentMaxSizeforUnit == s)
+                {
+                    item.Checked = true;
+                    maxsizecheckeditem = item;
+                }
+            }
+            maxsizecheckeditem.Checked = true;            
+        }
+
+        private void maxSizeItem_Click(object sender, EventArgs e)
+        {
+            maxsizecheckeditem.Checked = false;
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            rulerCtrl1.currentMaxSizeforUnit = (float)item.Tag;
+
+            maxsizecheckeditem = item;
+            maxsizecheckeditem.Checked = true;
+
+            rulerCtrl1.MaxSizeChangeRequest = true;
+
+            rulerCtrl1.Update();
+            this.Refresh();
         }
 
         private void monitorsizeItem_Click(object sender, EventArgs e)
@@ -259,6 +304,14 @@ namespace HonasRuler
             rulerCtrl1.Direction = RulerCtrl.DirectionType.Right;
             this.Refresh();
         }
+
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About a = new About();
+            a.ShowDialog(this);
+        }
+
         #endregion
 
 
@@ -376,10 +429,5 @@ namespace HonasRuler
 
         #endregion
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            About a = new About();
-            a.ShowDialog(this);
-        }
     }
 }
