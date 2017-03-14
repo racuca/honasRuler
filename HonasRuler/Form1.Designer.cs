@@ -66,7 +66,7 @@
             this.toolStripSeparator2,
             this.closeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(184, 170);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(184, 148);
             // 
             // monitorSizeToolStripMenuItem
             // 
@@ -182,12 +182,12 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(568, 120);
+            this.panel1.Size = new System.Drawing.Size(604, 120);
             this.panel1.TabIndex = 3;
             // 
             // advCollpseBtn
             // 
-            this.advCollpseBtn.Location = new System.Drawing.Point(512, 40);
+            this.advCollpseBtn.Location = new System.Drawing.Point(0, 37);
             this.advCollpseBtn.Name = "advCollpseBtn";
             this.advCollpseBtn.Size = new System.Drawing.Size(51, 23);
             this.advCollpseBtn.TabIndex = 3;
@@ -201,7 +201,7 @@
             this.pictureBox1.Image = global::HonasRuler.Properties.Resources.HonasLogo;
             this.pictureBox1.Location = new System.Drawing.Point(0, 37);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(568, 83);
+            this.pictureBox1.Size = new System.Drawing.Size(604, 83);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -214,7 +214,7 @@
             this.rulerCtrl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.rulerCtrl1.Location = new System.Drawing.Point(0, 0);
             this.rulerCtrl1.Name = "rulerCtrl1";
-            this.rulerCtrl1.Size = new System.Drawing.Size(568, 37);
+            this.rulerCtrl1.Size = new System.Drawing.Size(604, 37);
             this.rulerCtrl1.TabIndex = 2;
             this.rulerCtrl1.UnitType = HonasRuler.RulerCtrl.EUnitType.mm;
             this.rulerCtrl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.rulerCtrl1_MouseDown);
@@ -226,7 +226,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(568, 120);
+            this.ClientSize = new System.Drawing.Size(604, 120);
             this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
