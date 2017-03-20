@@ -5,6 +5,11 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HonasRuler", "HonasRuler\HonasRuler.csproj", "{2FF0C2A0-E404-49C6-B595-2C183E377A28}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Release", "Release", "{D3D1045C-3E9B-4853-B389-FF52ED50B00C}"
+	ProjectSection(SolutionItems) = preProject
+		HonasRuler1.0.zip = HonasRuler1.0.zip
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
