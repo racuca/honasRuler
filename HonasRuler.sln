@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Release", "Release", "{D3D1
 		HonasRuler1.0.zip = HonasRuler1.0.zip
 	EndProjectSection
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HonasRulerSetup", "HonasRulerSetup\HonasRulerSetup.vdproj", "{EC92710E-2F51-444E-9AAE-4C100BFB8808}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{2FF0C2A0-E404-49C6-B595-2C183E377A28}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2FF0C2A0-E404-49C6-B595-2C183E377A28}.Release|x86.ActiveCfg = Release|x86
 		{2FF0C2A0-E404-49C6-B595-2C183E377A28}.Release|x86.Build.0 = Release|x86
+		{EC92710E-2F51-444E-9AAE-4C100BFB8808}.Debug|Any CPU.ActiveCfg = Debug
+		{EC92710E-2F51-444E-9AAE-4C100BFB8808}.Debug|x86.ActiveCfg = Debug
+		{EC92710E-2F51-444E-9AAE-4C100BFB8808}.Release|Any CPU.ActiveCfg = Release
+		{EC92710E-2F51-444E-9AAE-4C100BFB8808}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -18,7 +18,9 @@ namespace HonasRuler
 
         private void About_Load(object sender, EventArgs e)
         {
-            richTextBox1.Rtf = @"{\rtf1\pc \b HonasRuler 1.0 \par \par Copyright 2017. HONAS all rights reserved. \par \par Email : racuca@gmail.com \par \par URL : https://github.com/racuca/honasRuler";
+            string msg = @"{\rtf1\pc \b HonasRuler " + this.ProductVersion + @" \par \par Copyright 2017. HONAS all rights reserved. \par \par Email : racuca@gmail.com \par \par URL : https://github.com/racuca/honasRuler";
+                                            
+            richTextBox1.Rtf = msg;
             richTextBox1.SelectAll();
             richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
             richTextBox1.Select(0, 0);
