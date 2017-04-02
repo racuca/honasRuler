@@ -56,6 +56,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
         "Release"
@@ -205,15 +213,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:HonasRuler"
-        "ProductCode" = "8:{53B242E9-C89F-419F-AC28-7CC30C455DCA}"
-        "PackageCode" = "8:{F59177E3-162E-45C0-8E71-F6EFDC2656D4}"
+        "ProductCode" = "8:{2500D9AF-5C0A-4AC6-B476-E5071927F389}"
+        "PackageCode" = "8:{EDE9C909-7CC1-4A23-A1B0-83845BC95268}"
         "UpgradeCode" = "8:{079EADFB-FD97-4823-805D-A58170546EDC}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.10"
+        "ProductVersion" = "8:1.1.0"
         "Manufacturer" = "8:Honas"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/racuca/honasRuler"
@@ -755,7 +763,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E60DC7E9786B4939B8C56C3BD23830E8"
             {
-            "SourcePath" = "8:..\\HonasRuler\\obj\\Release\\HonasRuler.exe"
+            "SourcePath" = "8:..\\HonasRuler\\obj\\Debug\\HonasRuler.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F5E461FBD517477D93163C0DD824547D"

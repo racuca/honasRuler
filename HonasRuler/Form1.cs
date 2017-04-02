@@ -290,6 +290,7 @@ namespace HonasRuler
 
             RotateTo(RulerCtrl.DirectionType.Left);
             rulerCtrl1.Direction = RulerCtrl.DirectionType.Left;
+            advCollpseBtn.Location = new Point(this.Width, this.Height - advCollpseBtn.Height);
             this.Refresh();
         }
 
@@ -369,8 +370,11 @@ namespace HonasRuler
                     break;
             }
 
-            RotateFlipType rotatefliptype = GetRotateFilpType(type);
-            pictureBox1.Image = ImageHelper.RotateImage(pictureBox1.Image, rotatefliptype);
+            if (pictureBox1.Image != null)
+            {
+                RotateFlipType rotatefliptype = GetRotateFilpType(type);
+                pictureBox1.Image = ImageHelper.RotateImage(pictureBox1.Image, rotatefliptype);
+            }
         }
 
         bool IsToporBottom(RulerCtrl.DirectionType type)
@@ -400,15 +404,15 @@ namespace HonasRuler
                     {
                         case RulerCtrl.DirectionType.Top: rotatetype = RotateFlipType.RotateNoneFlipNone; break;
                         case RulerCtrl.DirectionType.Bottom: rotatetype = RotateFlipType.RotateNoneFlipNone; break;
-                        case RulerCtrl.DirectionType.Left: rotatetype = RotateFlipType.Rotate270FlipNone; break;
-                        case RulerCtrl.DirectionType.Right: rotatetype = RotateFlipType.Rotate90FlipNone; break;
+                        case RulerCtrl.DirectionType.Left: rotatetype = RotateFlipType.Rotate90FlipNone; break;
+                        case RulerCtrl.DirectionType.Right: rotatetype = RotateFlipType.Rotate270FlipNone; break;
                     }
                     break;
                 case RulerCtrl.DirectionType.Left:
                     switch (rulerCtrl1.Direction)
                     {
-                        case RulerCtrl.DirectionType.Top: rotatetype = RotateFlipType.Rotate90FlipNone; break;
-                        case RulerCtrl.DirectionType.Bottom: rotatetype = RotateFlipType.Rotate90FlipNone; break;
+                        case RulerCtrl.DirectionType.Top: rotatetype = RotateFlipType.Rotate270FlipNone; break;
+                        case RulerCtrl.DirectionType.Bottom: rotatetype = RotateFlipType.Rotate270FlipNone; break;
                         case RulerCtrl.DirectionType.Left: rotatetype = RotateFlipType.RotateNoneFlipNone; break;
                         case RulerCtrl.DirectionType.Right: rotatetype = RotateFlipType.Rotate180FlipNone; break;
                     }
@@ -416,8 +420,8 @@ namespace HonasRuler
                 case RulerCtrl.DirectionType.Right:
                     switch (rulerCtrl1.Direction)
                     {
-                        case RulerCtrl.DirectionType.Top: rotatetype = RotateFlipType.Rotate270FlipNone; break;
-                        case RulerCtrl.DirectionType.Bottom: rotatetype = RotateFlipType.Rotate270FlipNone; break;
+                        case RulerCtrl.DirectionType.Top: rotatetype = RotateFlipType.Rotate90FlipNone; break;
+                        case RulerCtrl.DirectionType.Bottom: rotatetype = RotateFlipType.Rotate90FlipNone; break;
                         case RulerCtrl.DirectionType.Left: rotatetype = RotateFlipType.Rotate180FlipNone; break;
                         case RulerCtrl.DirectionType.Right: rotatetype = RotateFlipType.RotateNoneFlipNone; break;
                     }
