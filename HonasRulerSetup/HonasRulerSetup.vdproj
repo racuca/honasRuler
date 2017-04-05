@@ -213,15 +213,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:HonasRuler"
-        "ProductCode" = "8:{2500D9AF-5C0A-4AC6-B476-E5071927F389}"
-        "PackageCode" = "8:{EDE9C909-7CC1-4A23-A1B0-83845BC95268}"
+        "ProductCode" = "8:{8E93DC3F-6544-4FD6-9D3E-36C5581B9F00}"
+        "PackageCode" = "8:{1B841051-214D-4F4C-B891-1B72779BDF9A}"
         "UpgradeCode" = "8:{079EADFB-FD97-4823-805D-A58170546EDC}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.0"
+        "ProductVersion" = "8:1.1.1"
         "Manufacturer" = "8:Honas"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/racuca/honasRuler"
@@ -763,7 +763,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E60DC7E9786B4939B8C56C3BD23830E8"
             {
-            "SourcePath" = "8:..\\HonasRuler\\obj\\Debug\\HonasRuler.exe"
+            "SourcePath" = "8:..\\HonasRuler\\obj\\Release\\HonasRuler.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F5E461FBD517477D93163C0DD824547D"
