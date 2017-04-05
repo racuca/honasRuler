@@ -46,9 +46,10 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.advCollpseBtn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.rulerCtrl1 = new HonasRuler.RulerCtrl();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -61,12 +62,13 @@
             this.unitToolStripMenuItem,
             this.directionToolStripMenuItem,
             this.toolStripMenuItem1,
+            this.viewToolStripMenuItem,
             this.toolStripSeparator1,
             this.aboutToolStripMenuItem,
             this.toolStripSeparator2,
             this.closeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(184, 148);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(184, 192);
             // 
             // monitorSizeToolStripMenuItem
             // 
@@ -176,7 +178,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.advCollpseBtn);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.rulerCtrl1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -184,16 +185,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(604, 120);
             this.panel1.TabIndex = 3;
-            // 
-            // advCollpseBtn
-            // 
-            this.advCollpseBtn.Location = new System.Drawing.Point(0, 37);
-            this.advCollpseBtn.Name = "advCollpseBtn";
-            this.advCollpseBtn.Size = new System.Drawing.Size(51, 23);
-            this.advCollpseBtn.TabIndex = 3;
-            this.advCollpseBtn.Text = "▽";
-            this.advCollpseBtn.UseVisualStyleBackColor = true;
-            this.advCollpseBtn.Click += new System.EventHandler(this.advCollpseBtn_Click);
             // 
             // pictureBox1
             // 
@@ -220,6 +211,23 @@
             this.rulerCtrl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.rulerCtrl1_MouseDown);
             this.rulerCtrl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.rulerCtrl1_MouseMove);
             this.rulerCtrl1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.rulerCtrl1_MouseUp);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.logoToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // logoToolStripMenuItem
+            // 
+            this.logoToolStripMenuItem.Checked = true;
+            this.logoToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.logoToolStripMenuItem.Name = "logoToolStripMenuItem";
+            this.logoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.logoToolStripMenuItem.Text = "Logo";
+            this.logoToolStripMenuItem.Click += new System.EventHandler(this.logoToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -252,7 +260,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private RulerCtrl rulerCtrl1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button advCollpseBtn;
         private System.Windows.Forms.ToolStripMenuItem pixelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem directionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem normalToolStripMenuItem;
@@ -262,6 +269,8 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem monitorSizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem logoToolStripMenuItem;
     }
 }
 
