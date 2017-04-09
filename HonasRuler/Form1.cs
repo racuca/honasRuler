@@ -73,10 +73,6 @@ namespace HonasRuler
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //advCollpseBtn.Width = 50;
-            //advCollpseBtn.Location = new Point(rulerCtrl1.Location.X, pictureBox1.Location.Y);
-            //advCollpseBtn.Text = extendstr;
-
             pictureBox1.BackColor = Color.LightGray;
             
             ToolStripMenuItem toolstrip = contextMenuStrip1.Items[(int)MenuItems.MonitorSizeInch] as ToolStripMenuItem;
@@ -211,13 +207,11 @@ namespace HonasRuler
         {
             if (bcollapsed == false)
             {
-                //advCollpseBtn.Text = extendstr;
                 pictureBox1.Image = null;
                 pictureBox1.Visible = false;
             }
             else
             {
-                //advCollpseBtn.Text = collapsestr;
                 pictureBox1.Image = Properties.Resources.HonasLogo;
                 pictureBox1.Visible = true;
             }
@@ -290,7 +284,6 @@ namespace HonasRuler
 
             RotateTo(RulerCtrl.DirectionType.Left);
             rulerCtrl1.Direction = RulerCtrl.DirectionType.Left;
-            //advCollpseBtn.Location = new Point(this.Width, this.Height - advCollpseBtn.Height);
             this.Refresh();
         }
 
@@ -354,19 +347,15 @@ namespace HonasRuler
             {
                 case RulerCtrl.DirectionType.Top:
                     rulerCtrl1.Dock = DockStyle.Top; 
-                    //advCollpseBtn.Location = new Point(rulerCtrl1.Location.X, pictureBox1.Location.Y);
                     break;
                 case RulerCtrl.DirectionType.Bottom:
                     rulerCtrl1.Dock = DockStyle.Bottom;
-                    //advCollpseBtn.Location = new Point(rulerCtrl1.Location.X, rulerCtrl1.Location.Y - advCollpseBtn.Height);
                     break;
                 case RulerCtrl.DirectionType.Left:
                     rulerCtrl1.Dock = DockStyle.Left;
-                    //advCollpseBtn.Location = new Point(rulerCtrl1.Location.X, rulerCtrl1.Location.Y - advCollpseBtn.Height);
                     break;
                 case RulerCtrl.DirectionType.Right:
                     rulerCtrl1.Dock = DockStyle.Right;
-                    //advCollpseBtn.Location = new Point(rulerCtrl1.Location.X, rulerCtrl1.Location.Y - advCollpseBtn.Height);
                     break;
             }
 
@@ -448,6 +437,20 @@ namespace HonasRuler
             bcollapsed = !bcollapsed;
 
             logoToolStripMenuItem.Checked = !bcollapsed;
+        }
+
+        private void Form1_LocationChanged(object sender, EventArgs e)
+        {
+            ProcessStartInfo pro = new ProcessStartInfo();
+            Process[] honasrulers = Process.GetProcessesByName("HonasRuler");
+
+            if (honasrulers.Length <= 1)
+                return;
+
+            foreach (Process ruler in honasrulers)
+            {
+                
+            }
         }
     }
 }
